@@ -1,4 +1,4 @@
-prizma migrate dev --name chnages-
+
 
 
 🔹 Step 1: Project Setup

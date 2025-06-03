@@ -1,0 +1,8 @@
+neon how this helps devs
+
+prisma one to many
+prizma migrate dev --name chnages-
+npx prisma studio   opens localhost5555
+npx prisma generate
+Use "npx prisma migrate dev" for local development and creating migrations.
+Use :npx prisma migrate deploy: to apply existing migrations to production or staging databases.
