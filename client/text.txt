@@ -1,0 +1,102 @@
+prizma migrate dev --name chnages-
+
+
+🔹 Step 1: Project Setup
+Create Next.js app (App Router preferred)
+Set up Prisma + PostgreSQL (Neon)
+Create .env with DB connection
+Install Tailwind CSS (for UI)
+Initialize Prisma schema (you already started)
+
+
+🔹 Step 2: Auth System (Register / Login)
+Goal: Let users sign up and log in.
+    Use next-auth or custom JWT-based auth.
+    Create forms for:
+        Sign Up (email, password, username)
+        Login (email, password)
+    Secure endpoints & protected routes.
+Pages:
+    /register
+    /login
+    middleware to protect /profile, /dashboard, etc.
+
+
+🔹 Step 3: Profile Management
+Goal: Users can view and edit their profile.
+    CRUD operations for Profile model
+    Upload profile & background images (use next/image + cloud storage)
+    Link to share profile: /u/[username]
+    Add "Connect Bank Card" form
+Pages:
+    /profile/edit
+    /profile/share-link
+    /bank-card
+
+
+
+🔹 Step 4: Donation System
+Goal: Let users receive donations.
+
+Create Donation form (amount, message, socialURL)
+
+Save donation data in DB
+
+Show list of donations to the recipient
+
+🛠 Pages:
+
+/donate/[userId or username]
+
+/profile/donations
+
+🔹 Step 5: Explore Page
+Goal: Discover and donate to others.
+
+List other users
+
+Show profile previews
+
+Enable search
+
+Show who recently donated
+
+🛠 Pages:
+
+/explore
+
+/search?query=
+
+🔹 Step 6: Form Validation
+Goal: Validate all form inputs properly.
+
+Use zod or yup + react-hook-form
+
+Validate:
+
+Email format
+
+Required fields
+
+Card info
+
+Profile fields
+
+Optional Extras
+💳 Stripe/PayPal Integration
+
+🌐 Localization
+
+📱 Mobile Responsiveness
+
+🔒 Rate limiting for spam protection
+
+💡 Tech Stack Tips
+Area	Tools
+Backend DB	Prisma + PostgreSQL (Neon)
+Auth	NextAuth or custom JWT
+Styling	Tailwind CSS
+Forms	React Hook Form + Zod/Yup
+File uploads	UploadThing / Cloudinary / S3
+Search	Prisma filter queries
+
