@@ -1,7 +1,6 @@
 "use client";
 
 import React from "react";
-import { useState } from "react";
 import { WelcomingImage } from "../common/WelcomingImage";
 
 export const Register = () => {

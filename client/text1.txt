@@ -1,8 +1,17 @@
-neon how this helps devs
 
-prisma one to many
-prizma migrate dev --name chnages-
-npx prisma studio   opens localhost5555
-npx prisma generate
+npx prisma studio  --> opens localhost5555
 Use "npx prisma migrate dev" for local development and creating migrations.
 Use :npx prisma migrate deploy: to apply existing migrations to production or staging databases.
+
+npx prisma format
+npx prisma generate
+npx prisma migrate dev --name update-schema
+
+clerk doc metadata
+bring things in middleware
+
+DATABASE_URL = postgresql://neondb_owner:npg_DmjMO1sKcAT2@ep-restless-sea-a1dkxdax-pooler.ap-southeast-1.aws.neon.tech/prisma-coffee?sslmode=require
+NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=pk_test_ZnJlc2gtd29sZi00OC5jbGVyay5hY2NvdW50cy5kZXYk
+CLERK_SECRET_KEY=sk_test_qUfCKT9LY1yyZPDtT02IwEKY8LcHzVnCva1S6HJ5kK
+NEXT_PUBLIC_CLERK_SIGN_IN_FALLBACK_REDIRECT_URL=/dashboard
+NEXT_PUBLIC_CLERK_SIGN_UP_FORCE_REDIRECT_URL=/onboarding

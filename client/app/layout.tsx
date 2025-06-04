@@ -1,7 +1,18 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-
+// import { ClerkProvider, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
+//       <ClerkProvider>
+//         <header className="flex justify-end items-center p-4 gap-4 h-16">
+//           <SignedOut>
+//             <SignInButton />
+//             <SignUpButton />
+//           </SignedOut>
+//           <SignedIn>
+//             <UserButton />
+//           </SignedIn>
+//         </header>
+//       </ClerkProvider>
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -20,21 +31,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}></body>
     </html>
   );
 }
-
-// import { ClerkProvider, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-
-// <ClerkProvider>
-//           <header className="flex justify-end items-center p-4 gap-4 h-16">
-//             <SignedOut>
-//               <SignInButton />
-//               <SignUpButton />
-//             </SignedOut>
-//             <SignedIn>
-//               <UserButton />
-//             </SignedIn>
-//           </header>
-//     </ClerkProvider>

@@ -1,18 +1,5 @@
 import React from "react";
 import { Coffee } from "lucide-react";
-import { ClerkProvider, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
-
-// <ClerkProvider>
-//           <header className="flex justify-end items-center p-4 gap-4 h-16">
-//             <SignedOut>
-//               <SignInButton />
-//               <SignUpButton />
-//             </SignedOut>
-//             <SignedIn>
-//               <UserButton />
-//             </SignedIn>
-//           </header>
-//     </ClerkProvider>
 
 export const WelcomingImage = () => {
   return (
@@ -27,20 +14,6 @@ export const WelcomingImage = () => {
         <p className="font-bold text-3xl mt-10">Fund your creative work</p>
         <p className="text-2xl mt-3 text-center ">Accept support. Start a membership. Setup a shop. It's easier than you think.</p>
       </div>
-      {/*<ClerkProvider>
-        <div className="text-blue-400">
-          <SignedOut>
-            <button className="text-blue bg-red-500 border p-3 rounded-r-2xl">
-              <SignInButton />
-            </button>
-
-            <SignUpButton />
-          </SignedOut>
-        </div>
-         <SignedIn>
-          <UserButton />
-        </SignedIn>
-      </ClerkProvider> */}
     </div>
   );
 };
