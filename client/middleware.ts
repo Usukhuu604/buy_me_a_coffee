@@ -7,16 +7,16 @@ export default clerkMiddleware(async (auth, req) => {
   // if (!isPublicRoute(req)) {
   //   await auth.protect();
   // }
-  const { sessionClaims } = await auth();
+  // const { sessionClaims } = await auth();
 
-  if (isProtectedRoute(req)) {
-    const isProfileCompleted = (sessionClaims as { metadata?: { isProfileCompleted?: boolean } })?.metadata?.isProfileCompleted;
+  // if (isProtectedRoute(req)) {
+  //   const isProfileCompleted = (sessionClaims as { metadata?: { isProfileCompleted?: boolean } })?.metadata?.isProfileCompleted;
 
-    // if (!isProfileCompleted) {
-    //   const url = new URL("/profile", req.url);
-    //   return NextResponse.redirect(url);
-    // }
-  }
+  //   if (!isProfileCompleted) {
+  //     const url = new URL("/profile", req.url);
+  //     return NextResponse.redirect(url);
+  //   }
+  // }
 
   return NextResponse.next();
 });

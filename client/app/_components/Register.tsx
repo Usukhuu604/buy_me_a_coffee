@@ -26,25 +26,48 @@
 //   );
 // };
 
-"use client";
-
 import React from "react";
 import { WelcomingImage } from "../common/WelcomingImage";
-import { SignUp } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignIn,
+  SignInButton,
+  SignOutButton,
+  SignUp,
+  SignUpButton,
+  UserButton,
+} from "@clerk/nextjs";
+import { Button } from "@/components/ui/button";
 
 export const Register = () => {
   return (
     <div className="grid grid-cols-2 h-screen">
       <WelcomingImage />
-      <div className="flex items-center justify-center">
-        <SignUp
+      <SignedOut>
+        <SignInButton
+          mode="modal"
           appearance={{
             elements: {
-              "cl-internal-1dauvpw": { display: "none" },
+              footer: { display: "none" },
             },
           }}
-        />
-      </div>
+        >
+          <Button className="absolute top-8 right-10 border border-gray-600 cursor-pointer hover:bg-amber-300">
+            Login
+          </Button>
+        </SignInButton>
+        <div className="flex items-center justify-center">
+          <SignUp
+            appearance={{
+              elements: {
+                footer: { display: "none" },
+              },
+            }}
+            routing="hash"
+          />
+        </div>
+      </SignedOut>
     </div>
   );
 };
