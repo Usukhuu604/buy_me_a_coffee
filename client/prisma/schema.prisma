@@ -21,6 +21,7 @@ model Donation {
 
 model BankCard {
   id         Int      @id @default(autoincrement())
+  cvc        String
   userId     String
   country    String
   firstName  String
