@@ -1,7 +1,10 @@
 import type { Metadata } from "next";
-import { ClerkProvider, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton } from "@clerk/nextjs";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Coffee } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ClerkProvider, SignInButton, SignUpButton, SignedIn, SignedOut, UserButton, SignOutButton } from "@clerk/nextjs";
+import { ClerkUsername } from "./hooks/useUsername";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,33 +29,24 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en">
-        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+        <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+          <div className="flex font-bold px-20 pt-10 w-[100vw] justify-between absolute">
+            <div className="flex">
+              <Coffee /> Buy me coffee
+            </div>
+            <SignedIn>
+              <div className="flex items-center justify-around ">
+                <UserButton />
+                <ClerkUsername />
+                <SignOutButton redirectUrl="/">
+                  <Button className="text-[16px] border cursor-pointer hover:bg-red-300">Sign Out</Button>
+                </SignOutButton>
+              </div>
+            </SignedIn>
+          </div>
+          {children}
+        </body>
       </html>
     </ClerkProvider>
   );
 }
-
-// export default function RootLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   return (
-//     <ClerkProvider>
-//       <html lang="en">
-//         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-//           <header className="flex justify-end items-center p-4 gap-4 h-16">
-//             <SignedOut>
-//               <SignInButton />
-//               <SignUpButton />
-//             </SignedOut>
-//             <SignedIn>
-//               <UserButton />
-//             </SignedIn>
-//           </header>
-//           {children}
-//         </body>
-//       </html>
-//     </ClerkProvider>
-//   );
-// }

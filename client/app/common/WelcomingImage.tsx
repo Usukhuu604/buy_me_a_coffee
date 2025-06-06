@@ -1,13 +1,8 @@
 import React from "react";
-import { Coffee } from "lucide-react";
 
 export const WelcomingImage = () => {
   return (
     <div className="bg-[#fbbf24] h-screen w-full flex flex-col px-20 py-8 ">
-      <div className="flex font-bold">
-        <Coffee /> Buy me coffee
-      </div>
-
       <div className="flex flex-col w-[60%] self-center items-center relative top-[50%] transform -translate-y-1/2">
         <img src="illustration.png" alt="" />
 
