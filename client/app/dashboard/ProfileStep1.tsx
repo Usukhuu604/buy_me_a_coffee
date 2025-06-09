@@ -1,20 +1,15 @@
 "use client";
 
 import Form from "next/form";
-import { createProfile } from "../actions/createProfile";
-import { Camera } from "lucide-react";
-import { X } from "lucide-react";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { Button } from "@/components/ui/button";
-import { useGetImage } from "@/app/hooks/useGetImage";
 import { useActionState } from "react";
+import { Camera, X } from "lucide-react";
+import { useGetImage } from "@/app/hooks/useGetImage";
+import { Label, Input, Button } from "@/components/ui";
+import { createProfile } from "../actions/createProfile";
 import { ZodErrors } from "./ZodError";
 
 type ProfileStepProps = {
-  currentStep: number;
   nextStep: () => void;
-  previousStep: () => void;
 };
 
 const INITIAL_STATE = {
@@ -23,7 +18,7 @@ const INITIAL_STATE = {
   ZodError: { avatarImage: [], name: [], about: [], socialMediaURL: [] },
 };
 
-export default function NewProfile({ nextStep }: ProfileStepProps) {
+export const NewProfile = ({ nextStep }: ProfileStepProps) => {
   const [formState, formAction] = useActionState(createProfile, INITIAL_STATE);
 
   const { fileInputRef, previewLink, uploading, isDragging, openBrowse, handleFileSelect, handleDrop, deleteImage, setIsDragging } =
@@ -31,18 +26,20 @@ export default function NewProfile({ nextStep }: ProfileStepProps) {
       onUpload: (url: string) => {},
     });
 
-  const handleSubmit = () => {
+  const handleNextStep = () => {
     nextStep();
   };
 
   return (
     <div className="w-127 w-max-168 flex flex-col gap-6">
       <h3 className="font-semibold text-2xl">Complete your profile page</h3>
+
       <Form action={formAction} className="space-y-6">
         <div className="flex flex-col gap-3">
           <Label htmlFor="avatarImage" className="text-sm font-medium">
             Add photo
           </Label>
+
           <Input hidden id="avatarImage" name="avatarImage" type="file" ref={fileInputRef} onChange={handleFileSelect} />
 
           <div
@@ -72,7 +69,7 @@ export default function NewProfile({ nextStep }: ProfileStepProps) {
                 </Button>
               </div>
             ) : (
-              <p className="text-sm text-gray-500">{uploading ? "Uploading..." : <Camera />}</p>
+              <p className="text-sm text-gray-700">{uploading ? "Uploading..." : <Camera />}</p>
             )}
           </div>
           <ZodErrors error={formState?.ZodError?.avatarImage} />
@@ -96,8 +93,10 @@ export default function NewProfile({ nextStep }: ProfileStepProps) {
           <ZodErrors error={formState?.ZodError?.socialMediaURL} />
         </div>
 
-        <Button onClick={handleSubmit}>Continue</Button>
+        <Button onClick={handleNextStep}>Continue</Button>
       </Form>
     </div>
   );
-}
+};
+
+export default NewProfile;

@@ -1,13 +1,3 @@
-// import React from "react";
-// import { SignedIn, UserButton, SignOutButton } from "@clerk/nextjs";
-// import { Button } from "@/components/ui/button";
-
-// const Dashboard = () => {
-//   return <div></div>;
-// };
-
-// export default Dashboard;
-
 "use client";
 
 import { useState } from "react";
@@ -19,23 +9,17 @@ const ProfilePage = () => {
   const [currentStep, setCurrentStep] = useState(0);
 
   const nextStep = () => {
-    if (currentStep < 2) {
-      setCurrentStep((prev) => prev + 1);
-    }
-    return;
+    setCurrentStep((currentStep) => (currentStep = 1));
   };
 
   const previousStep = () => {
-    if (currentStep > -1) {
-      setCurrentStep((prev) => prev - 1);
-    }
-    return;
+    setCurrentStep((currentStep) => (currentStep = 0));
   };
 
   const StepsComponents = [ProfileStepOne, ProfileStepTwo][currentStep];
 
   return (
-    <div className="flex justify-center items-center mt-30">
+    <div className="flex justify-center items-center h-[100vh] ">
       <AnimatePresence mode="wait">
         <motion.div
           key={currentStep}
@@ -44,7 +28,7 @@ const ProfilePage = () => {
           exit={{ opacity: 0, x: -100 }}
           transition={{ duration: 0.5 }}
         >
-          <StepsComponents currentStep={currentStep} nextStep={nextStep} previousStep={previousStep} />
+          <StepsComponents nextStep={nextStep} previousStep={previousStep} />
         </motion.div>
       </AnimatePresence>
     </div>
