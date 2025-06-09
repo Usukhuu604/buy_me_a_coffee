@@ -21,10 +21,19 @@ const INITIAL_STATE = {
 export const NewProfile = ({ nextStep }: ProfileStepProps) => {
   const [formState, formAction] = useActionState(createProfile, INITIAL_STATE);
 
-  const { fileInputRef, previewLink, uploading, isDragging, openBrowse, handleFileSelect, handleDrop, deleteImage, setIsDragging } =
-    useGetImage({
-      onUpload: (url: string) => {},
-    });
+  const {
+    fileInputRef,
+    previewLink,
+    uploading,
+    isDragging,
+    openBrowse,
+    handleFileSelect,
+    handleDrop,
+    deleteImage,
+    setIsDragging,
+  } = useGetImage({
+    onUpload: (url: string) => {},
+  });
 
   const handleNextStep = () => {
     nextStep();
@@ -40,7 +49,14 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
             Add photo
           </Label>
 
-          <Input hidden id="avatarImage" name="avatarImage" type="file" ref={fileInputRef} onChange={handleFileSelect} />
+          <Input
+            hidden
+            id="avatarImage"
+            name="avatarImage"
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileSelect}
+          />
 
           <div
             className={` rounded-full flex justify-center items-center w-40 h-40 border-2 border-dashed cursor-pointer ${
@@ -93,7 +109,9 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
           <ZodErrors error={formState?.ZodError?.socialMediaURL} />
         </div>
 
-        <Button onClick={handleNextStep}>Continue</Button>
+        <Button type="submit" onClick={handleNextStep}>
+          Continue
+        </Button>
       </Form>
     </div>
   );

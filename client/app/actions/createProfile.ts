@@ -1,63 +1,69 @@
 "use server";
 
-import { z } from "zod/v4";
-import { currentUser } from "@clerk/nextjs/server";
+import { z } from "zod";
+import { currentUser, clerkClient } from "@clerk/nextjs/server";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
 const schemaUserProfile = z.object({
-  avatarImage: z.any().refine((files) => files?.length == 1, {
-    message: "Please enter image",
-  }),
-
-  name: z.string().min(3, { message: "Please enter name" }),
-  about: z.string().min(1, { message: "Please enter info about yourself" }),
-  socialMediaURL: z.url({ message: "Please enter a social link" }),
+  name: z.string().min(3, { message: "Please enter a valid name" }),
+  about: z.string().min(10, { message: "Please tell us more about yourself" }),
+  socialMediaURL: z.string().url({ message: "Please enter a valid URL" }),
+  avatarImage: z.string().url({ message: "Please enter a valid image URL" }),
+  backgroundImage: z.string().url({ message: "Please enter a valid image URL" }).optional(),
 });
 
-export const createProfile = async (previous: unknown, formData: FormData) => {
+export const createProfile = async (_previous: unknown, formData: FormData) => {
   const user = await currentUser();
 
   if (!user || !user.id) {
     return {
-      ZodError: {},
       message: "User not authenticated",
+      ZodError: {},
     };
   }
 
-  const userId = user.id;
-
   const validateFormData = schemaUserProfile.safeParse({
-    avatarImage: formData.get("avatarImage"),
     name: formData.get("name"),
     about: formData.get("about"),
     socialMediaURL: formData.get("socialMediaURL"),
+    avatarImage: formData.get("avatarImage"),
+    backgroundImage: formData.get("backgroundImage"),
   });
 
   if (!validateFormData.success) {
     return {
+      message: "Validation failed",
       ZodError: validateFormData.error.flatten().fieldErrors,
-      message: "Missing Fields, Failed to maka profile",
     };
   }
 
-  const name = formData.get("name") as string;
-  const about = formData.get("about") as string;
-  const avatarImage = formData.get("avatarImage") as string;
-  const socialMediaURL = formData.get("socialMediaURL") as string;
-  const backgroundImage = formData.get("backgroundImage") as string;
+  try {
+    const profile = await prisma.profile.create({
+      data: {
+        userId: user.id,
+        name: validateFormData.data.name,
+        about: validateFormData.data.about,
+        socialMediaURL: validateFormData.data.socialMediaURL,
+        avatarImage: validateFormData.data.avatarImage,
+        backgroundImage: validateFormData.data.backgroundImage || "",
+        successMessage: "Profile created successfully",
+      },
+    });
 
-  await prisma.profile.create({
-    data: {
-      name,
-      about,
-      userId,
-      avatarImage,
-      socialMediaURL,
-      backgroundImage,
-      successMessage: "Profile created successfully",
-    },
-  });
+    const clerk = await clerkClient();
+    await clerk.users.updateUser(user.id, {
+      publicMetadata: {
+        isProfileCompleted: true,
+      },
+    });
 
-  redirect("/");
+    redirect("/dashboard");
+  } catch (error) {
+    console.error("Error creating profile:", error);
+    return {
+      message: "Failed to create profile",
+      ZodError: {},
+    };
+  }
 };

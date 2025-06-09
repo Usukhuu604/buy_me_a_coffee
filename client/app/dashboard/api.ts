@@ -1,7 +1,7 @@
 import { auth, clerkClient } from "@clerk/nextjs/server";
 import { NextResponse } from "next/server";
 
-export async function POST() {
+export const POST = async () => {
   const { userId } = await auth();
   if (!userId) {
     return NextResponse.json({ error: "Нэвтрээгүй байна" }, { status: 401 });
@@ -13,4 +13,4 @@ export async function POST() {
   });
 
   return NextResponse.json({ success: true });
-}
+};
