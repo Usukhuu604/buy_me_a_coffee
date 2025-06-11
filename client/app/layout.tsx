@@ -35,7 +35,7 @@ export default function RootLayout({
               <Coffee /> Buy me coffee
             </div>
             <SignedIn>
-              <div className="flex items-center justify-around ">
+              <div className="flex items-center justify-around space-x-5">
                 <UserButton />
                 <ClerkUsername />
                 <SignOutButton redirectUrl="/">

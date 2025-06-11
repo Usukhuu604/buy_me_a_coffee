@@ -63,6 +63,7 @@ export const createProfile = async (_previous: unknown, formData: FormData) => {
     console.error("Error creating profile:", error);
     return {
       message: "Failed to create profile",
+      // data: null,
       ZodError: {},
     };
   }

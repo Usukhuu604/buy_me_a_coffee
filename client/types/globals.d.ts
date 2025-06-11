@@ -1,11 +1,11 @@
-// export {};
+export {};
 
-// declare global {
-//   interface CustomJwtSessionClaims {
-//     metadata: {
-//       onboardingComplete?: boolean;
-//       applicationName?: string;
-//       applicationType?: string;
-//     };
-//   }
-// }
+declare global {
+  interface CustomJwtSessionClaims {
+    metadata: {
+      onboardingComplete?: boolean;
+      //   applicationName?: string;
+      //   applicationType?: string;
+    };
+  }
+}

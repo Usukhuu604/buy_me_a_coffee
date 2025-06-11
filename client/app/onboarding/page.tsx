@@ -5,7 +5,6 @@
 // import { Button } from "@/components/ui/button";
 // import { Input } from "@/components/ui/input";
 // import { Label } from "@/components/ui/label";
-// import { Textarea } from "@/components/ui/textarea";
 
 // const initialState = {
 //   message: "",
@@ -39,7 +38,7 @@
 
 //             <div>
 //               <Label htmlFor="about">About You</Label>
-//               <Textarea id="about" name="about" required className="mt-1" placeholder="Tell us about yourself..." />
+
 //               {state?.ZodError?.about && <p className="mt-1 text-sm text-red-600">{state.ZodError.about}</p>}
 //             </div>
 

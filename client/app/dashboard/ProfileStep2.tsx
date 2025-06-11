@@ -5,7 +5,6 @@ import CompleteProfile from "./CompleteProfile";
 import { useActionState, useState } from "react";
 import { createCard } from "../actions/createCard";
 import { getCountries } from "@/app/utils/getCountries";
-import { ZodErrors } from "./ZodError";
 import { Label, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
 
 type ProfileStepProps = {
@@ -17,8 +16,8 @@ const INITIAL_STATE = {
   message: "",
   ZodError: {
     country: [],
-    firstname: [],
-    lastname: [],
+    firstName: [],
+    lastName: [],
     cardNumber: [],
     expiryDate: [],
     cvc: [],
@@ -71,27 +70,27 @@ export default function NewCard({ previousStep }: ProfileStepProps) {
             </SelectContent>
           </Select>
 
-          <ZodErrors error={formState?.ZodError?.country} />
+          {formState?.ZodError?.country && <p className="mt-1 text-sm text-red-600">{formState.ZodError.country}</p>}
         </div>
 
         <div className="flex gap-10">
           <div className="flex flex-col gap-2">
             <Label htmlFor="firstName">First name</Label>
             <Input type="text" id="firstName" name="firstName" placeholder="Enter your name here" />
-            <ZodErrors error={formState?.ZodError?.firstName} />
+            {formState?.ZodError?.firstName && <p className="mt-1 text-sm text-red-600">{formState.ZodError.firstName}</p>}
           </div>
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="lastName">Last Name</Label>
             <Input type="text" id="lastName" name="lastName" placeholder="Enter your name here" />
-            <ZodErrors error={formState?.ZodError?.lastName} />
+            {formState?.ZodError?.lastName && <p className="mt-1 text-sm text-red-600">{formState.ZodError.lastName}</p>}
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="cardNumber">Enter card number</Label>
           <Input type="text" id="cardNumber" name="cardNumber" value={value} onChange={handleChange} placeholder="XXXX-XXXX-XXXX-XXXX" />
-          <ZodErrors error={formState?.ZodError?.cardNumber} />
+          {formState?.ZodError?.cardNumber && <p className="mt-1 text-sm text-red-600">{formState.ZodError.cardNumber}</p>}
         </div>
 
         <div className="flex justify-between gap-2">
@@ -112,7 +111,7 @@ export default function NewCard({ previousStep }: ProfileStepProps) {
               </SelectContent>
             </Select>
 
-            <ZodErrors error={formState?.ZodError?.months} />
+            {formState?.ZodError?.months && <p className="mt-1 text-sm text-red-600">{formState.ZodError.months}</p>}
           </div>
           <div className="flex flex-col gap-2">
             <Label htmlFor="expiryDate">Year</Label>
@@ -131,13 +130,13 @@ export default function NewCard({ previousStep }: ProfileStepProps) {
               </SelectContent>
             </Select>
 
-            <ZodErrors error={formState?.ZodError?.years} />
+            {formState?.ZodError?.years && <p className="mt-1 text-sm text-red-600">{formState.ZodError.years}</p>}
           </div>
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="cvc">CVC</Label>
             <Input onChange={handleChangeCVV} type="text" id="cvc" name="cvc" placeholder="CVC" />
-            <ZodErrors error={formState?.ZodError?.cvc} />
+            {formState?.ZodError?.cvc && <p className="mt-1 text-sm text-red-600">{formState.ZodError.cvc}</p>}
           </div>
         </div>
 
