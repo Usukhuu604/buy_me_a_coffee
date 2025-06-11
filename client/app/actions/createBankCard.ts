@@ -1,17 +1,15 @@
 "use server";
 
+import { z } from "zod/v4";
 import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
-import { z } from "zod/v4";
 import { currentUser } from "@clerk/nextjs/server";
 import { getCountries } from "../utils/getCountries";
 
 const { countries, months, years } = getCountries();
 
 const schemaUserBankCard = z.object({
-  country: z.enum(countries, {
-    message: "Please select a country",
-  }),
+  country: z.enum(countries, { message: "Please select a country" }),
   firstName: z.string().min(2, { message: "Please enter name" }),
   lastName: z.string().min(2, { message: "Please enter name" }),
   cardNumber: z.string().length(16, { message: "Wrong card number" }),
@@ -58,7 +56,7 @@ export const createCard = async (previous: unknown, formData: FormData) => {
 
   await prisma.bankCard.create({
     data: {
-      userId: user.id,
+      userId: String(user.id),
       country,
       firstName,
       lastName,

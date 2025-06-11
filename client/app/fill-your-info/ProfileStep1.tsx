@@ -15,20 +15,25 @@ type ProfileStepProps = {
 const INITIAL_STATE = {
   data: null,
   message: "",
-  ZodError: { avatarImage: [], name: [], about: [], socialMediaURL: [], backgroundImage: [] },
+  ZodError: { avatarImage: [], name: [], about: [], socialMediaURL: [] },
 };
 
 export const NewProfile = ({ nextStep }: ProfileStepProps) => {
   const [formState, formAction] = useActionState(createProfile, INITIAL_STATE);
 
-  const { fileInputRef, previewLink, uploading, isDragging, openBrowse, handleFileSelect, handleDrop, deleteImage, setIsDragging } =
-    useGetImage({
-      onUpload: (url: string) => {},
-    });
-
-  const handleNextStep = () => {
-    nextStep();
-  };
+  const {
+    fileInputRef,
+    previewLink,
+    uploading,
+    isDragging,
+    openBrowse,
+    handleFileSelect,
+    handleDrop,
+    deleteImage,
+    setIsDragging,
+  } = useGetImage({
+    onUpload: (url: string) => {},
+  });
 
   return (
     <div className="w-127 w-max-168 flex flex-col gap-6">
@@ -40,7 +45,14 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
             Add photo
           </Label>
 
-          <Input hidden id="avatarImage" name="avatarImage" type="file" ref={fileInputRef} onChange={handleFileSelect} />
+          <Input
+            hidden
+            id="avatarImage"
+            name="avatarImage"
+            type="file"
+            ref={fileInputRef}
+            onChange={handleFileSelect}
+          />
 
           <div
             className={` rounded-full flex justify-center items-center w-40 h-40 border-2 border-dashed cursor-pointer ${
@@ -72,27 +84,26 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
               <p className="text-sm text-gray-700">{uploading ? "Uploading..." : <Camera />}</p>
             )}
           </div>
-          {formState?.ZodError?.avatarImage && <p className="mt-1 text-sm text-red-600">{formState.ZodError.avatarImage}</p>}
+
+          <ZodErrors error={formState.ZodError.avatarImage} />
         </div>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="name">Name</Label>
           <Input type="text" id="name" name="name" placeholder="Enter your name here" />
-
-          {formState?.ZodError?.name && <p className="mt-1 text-sm text-red-600">{formState.ZodError.name}</p>}
+          <ZodErrors error={formState.ZodError.name} />
         </div>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="about">About</Label>
           <Input type="text" id="about" name="about" placeholder="Write about yourself here" className="min-h-20" />
-
-          {formState?.ZodError?.about && <p className="mt-1 text-sm text-red-600">{formState.ZodError.about}</p>}
+          <ZodErrors error={formState.ZodError.about} />
         </div>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="socialMediaURL">Social media URL</Label>
           <Input type="text" id="socialMediaURL" name="socialMediaURL" placeholder="https://" />
-          {formState?.ZodError?.socialMediaURL && <p className="mt-1 text-sm text-red-600">{formState.ZodError.socialMediaURL}</p>}
+          <ZodErrors error={formState.ZodError.socialMediaURL} />
         </div>
 
         <Button type="submit">Continue</Button>

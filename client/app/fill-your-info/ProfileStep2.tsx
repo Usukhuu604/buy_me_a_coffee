@@ -3,7 +3,7 @@
 import Form from "next/form";
 import CompleteProfile from "./CompleteProfile";
 import { useActionState, useState } from "react";
-import { createCard } from "../actions/createCard";
+import { createCard } from "../actions/createBankCard";
 import { getCountries } from "@/app/utils/getCountries";
 import { Label, Button, Input, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui";
 
@@ -26,7 +26,7 @@ const INITIAL_STATE = {
 
 export default function NewCard({ previousStep }: ProfileStepProps) {
   const [formState, formAction] = useActionState(createCard, INITIAL_STATE);
-  console.log(formState?.ZodError);
+
   const [value, setValue] = useState("");
   const [valueCvv, setValueCvv] = useState("");
 
@@ -77,20 +77,33 @@ export default function NewCard({ previousStep }: ProfileStepProps) {
           <div className="flex flex-col gap-2">
             <Label htmlFor="firstName">First name</Label>
             <Input type="text" id="firstName" name="firstName" placeholder="Enter your name here" />
-            {formState?.ZodError?.firstName && <p className="mt-1 text-sm text-red-600">{formState.ZodError.firstName}</p>}
+            {formState?.ZodError?.firstName && (
+              <p className="mt-1 text-sm text-red-600">{formState.ZodError.firstName}</p>
+            )}
           </div>
 
           <div className="flex flex-col gap-2">
             <Label htmlFor="lastName">Last Name</Label>
             <Input type="text" id="lastName" name="lastName" placeholder="Enter your name here" />
-            {formState?.ZodError?.lastName && <p className="mt-1 text-sm text-red-600">{formState.ZodError.lastName}</p>}
+            {formState?.ZodError?.lastName && (
+              <p className="mt-1 text-sm text-red-600">{formState.ZodError.lastName}</p>
+            )}
           </div>
         </div>
 
         <div className="flex flex-col gap-2">
           <Label htmlFor="cardNumber">Enter card number</Label>
-          <Input type="text" id="cardNumber" name="cardNumber" value={value} onChange={handleChange} placeholder="XXXX-XXXX-XXXX-XXXX" />
-          {formState?.ZodError?.cardNumber && <p className="mt-1 text-sm text-red-600">{formState.ZodError.cardNumber}</p>}
+          <Input
+            type="text"
+            id="cardNumber"
+            name="cardNumber"
+            value={value}
+            onChange={handleChange}
+            placeholder="XXXX-XXXX-XXXX-XXXX"
+          />
+          {formState?.ZodError?.cardNumber && (
+            <p className="mt-1 text-sm text-red-600">{formState.ZodError.cardNumber}</p>
+          )}
         </div>
 
         <div className="flex justify-between gap-2">

@@ -6,10 +6,10 @@ import prisma from "@/lib/prisma";
 import { redirect } from "next/navigation";
 
 const schemaUserProfile = z.object({
-  name: z.string().min(3, { message: "Please enter a valid name" }),
-  about: z.string().min(10, { message: "Please tell us more about yourself" }),
-  socialMediaURL: z.string().url({ message: "Please enter a valid URL" }),
-  avatarImage: z.string().url({ message: "Please enter a valid image URL" }),
+  name: z.string().min(3, { message: "Please enter a valid name" }).max(100),
+  about: z.string().min(10, { message: "Please tell us more about yourself" }).max(500),
+  socialMediaURL: z.string().url({ message: "Please enter a valid URL" }).max(1000),
+  avatarImage: z.string().url({ message: "Please enter a valid image URL" }).max(1000),
   backgroundImage: z.string().url({ message: "Please enter a valid image URL" }).optional(),
 });
 
