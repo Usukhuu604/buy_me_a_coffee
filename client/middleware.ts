@@ -11,7 +11,7 @@ export default clerkMiddleware(async (auth, req: NextRequest) => {
   if (userId && isOnboardingRoute(req)) {
     return NextResponse.next();
   }
-
+  ///////////afwefawef
   // If the user isn't signed in and the route is private, redirect to sign-in
   // if (!userId && !isPublicRoute(req)) return redirectToSignIn({ returnBackUrl: req.url });
 
