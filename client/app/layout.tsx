@@ -3,17 +3,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Coffee } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  ClerkProvider,
-  SignInButton,
-  SignUpButton,
-  SignedIn,
-  SignedOut,
-  UserButton,
-  SignOutButton,
-} from "@clerk/nextjs";
+import { ClerkProvider, SignedIn, UserButton, SignOutButton } from "@clerk/nextjs";
 import { ClerkUsername } from "./hooks/useUsername";
-import UserDataSync from "./actions/UserDataSync";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,7 +30,6 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <UserDataSync />
           <div className="flex font-bold px-20 pt-10 w-[98vw] justify-between absolute top-0">
             <div className="flex">
               <Coffee /> Buy me coffee

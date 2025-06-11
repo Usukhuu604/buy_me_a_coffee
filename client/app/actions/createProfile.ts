@@ -10,10 +10,19 @@ const schemaUserProfile = z.object({
   about: z.string().min(10, { message: "Please tell us more about yourself" }).max(500),
   socialMediaURL: z.string().url({ message: "Please enter a valid URL" }).max(1000),
   avatarImage: z.string().url({ message: "Please enter a valid image URL" }).max(1000),
-  backgroundImage: z.string().url({ message: "Please enter a valid image URL" }).optional(),
+  backgroundImage: z
+    .string()
+    .url({ message: "Please enter a valid image URL" })
+    .optional()
+    .or(z.literal("").optional()),
 });
 
-export const createProfile = async (_previous: unknown, formData: FormData) => {
+type ActionResponse = {
+  message: string;
+  ZodError: Record<string, string[]>;
+};
+
+export const createProfile = async (_previous: unknown, formData: FormData): Promise<ActionResponse> => {
   const user = await currentUser();
 
   if (!user || !user.id) {
@@ -23,7 +32,7 @@ export const createProfile = async (_previous: unknown, formData: FormData) => {
     };
   }
 
-  const validateFormData = schemaUserProfile.safeParse({
+  const parsedData = schemaUserProfile.safeParse({
     name: formData.get("name"),
     about: formData.get("about"),
     socialMediaURL: formData.get("socialMediaURL"),
@@ -31,39 +40,38 @@ export const createProfile = async (_previous: unknown, formData: FormData) => {
     backgroundImage: formData.get("backgroundImage"),
   });
 
-  if (!validateFormData.success) {
+  if (!parsedData.success) {
     return {
       message: "Validation failed",
-      ZodError: validateFormData.error.flatten().fieldErrors,
+      ZodError: parsedData.error.flatten().fieldErrors,
     };
   }
 
   try {
-    const profile = await prisma.profile.create({
+    const { name, about, socialMediaURL, avatarImage, backgroundImage } = parsedData.data;
+
+    await prisma.profile.create({
       data: {
         userId: user.id,
-        name: validateFormData.data.name,
-        about: validateFormData.data.about,
-        socialMediaURL: validateFormData.data.socialMediaURL,
-        avatarImage: validateFormData.data.avatarImage,
-        backgroundImage: validateFormData.data.backgroundImage || "",
-        successMessage: "Profile created successfully",
+        name,
+        about,
+        socialMediaURL,
+        avatarImage,
+        backgroundImage: backgroundImage || "",
       },
     });
 
-    const clerk = await clerkClient();
-    await clerk.users.updateUser(user.id, {
-      publicMetadata: {
-        isProfileCompleted: true,
-      },
-    });
+    // await clerkClient.users.updateUser(user.id, {
+    //   publicMetadata: {
+    //     isProfileCompleted: true,
+    //   },
+    // });
 
-    redirect("/dashboard");
+    redirect("/fill-your-info");
   } catch (error) {
-    console.error("Error creating profile:", error);
+    console.error("❌ Error creating profile:", error);
     return {
       message: "Failed to create profile",
-      // data: null,
       ZodError: {},
     };
   }

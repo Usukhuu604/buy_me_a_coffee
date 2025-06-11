@@ -115,7 +115,7 @@ export default function NewCard({ previousStep }: ProfileStepProps) {
                 <SelectValue placeholder="Month" />
               </SelectTrigger>
 
-              <SelectContent className="bg-whtie">
+              <SelectContent className="bg-white">
                 {months.map((month) => (
                   <SelectItem key={month} value={month} className="hover:bg-gray-200 cursor-pointer">
                     {month}

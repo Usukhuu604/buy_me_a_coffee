@@ -56,7 +56,7 @@ export const createCard = async (previous: unknown, formData: FormData) => {
 
   await prisma.bankCard.create({
     data: {
-      userId: String(user.id),
+      userId: user.id,
       country,
       firstName,
       lastName,

@@ -11,7 +11,7 @@ const CompleteProfile = () => {
   const handleCompleteProfile = async () => {
     await fetch("/api/complete-profile", { method: "POST" });
     await session?.reload();
-    router.push("/homepage");
+    router.push("/dashboard");
   };
 
   return <Button onClick={handleCompleteProfile}>Done</Button>;

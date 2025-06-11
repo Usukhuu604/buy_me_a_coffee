@@ -13,11 +13,12 @@ export const useGetImage = ({ onUpload }: { onUpload: (url: string) => void }) =
   const uploadToCloudinary = async (file: File) => {
     setUploading(true);
     const formData = new FormData();
-    formData.append("upload_preset", "food-delivery");
+    formData.append("upload_preset", "coffee-time");
     formData.append("file", file);
+    formData.append("folder", "coffeeproject");
 
     try {
-      const res = await fetch("https://api.cloudinary.com/v1_1/dhvup7uyy/image/upload", {
+      const res = await fetch("https://api.cloudinary.com/v1_1/dd7qcdmww/image/upload", {
         method: "POST",
         body: formData,
       });

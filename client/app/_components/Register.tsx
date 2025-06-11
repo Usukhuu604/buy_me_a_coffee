@@ -1,7 +1,7 @@
 import React from "react";
 import { Button } from "@/components/ui/button";
-import { WelcomingImage } from "../common/WelcomingImage";
-import { SignedIn, SignedOut, SignIn, SignInButton, SignOutButton, SignUp, SignUpButton, UserButton } from "@clerk/nextjs";
+import { WelcomingImage } from "./common/WelcomingImage";
+import { SignedOut, SignInButton, SignUp } from "@clerk/nextjs";
 
 export const Register = () => {
   return (
