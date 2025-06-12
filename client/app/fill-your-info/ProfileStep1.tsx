@@ -21,21 +21,12 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
   const [formState, formAction] = useActionState(createProfile, INITIAL_STATE);
   const [uploadedAvatarUrl, setUploadedAvatarUrl] = useState("");
 
-  const {
-    fileInputRef,
-    previewLink,
-    uploading,
-    isDragging,
-    openBrowse,
-    handleFileSelect,
-    handleDrop,
-    deleteImage,
-    setIsDragging,
-  } = useGetImage({
-    onUpload: (url: string) => {
-      setUploadedAvatarUrl(url);
-    },
-  });
+  const { fileInputRef, previewLink, uploading, isDragging, openBrowse, handleFileSelect, handleDrop, deleteImage, setIsDragging } =
+    useGetImage({
+      onUpload: (url: string) => {
+        setUploadedAvatarUrl(url);
+      },
+    });
 
   const handleNext = nextStep;
 
@@ -43,7 +34,7 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
     <div className="w-127 w-max-168 flex flex-col gap-6">
       <h3 className="font-semibold text-2xl">Complete your profile page</h3>
 
-      <form action={formAction} className="space-y-6">
+      <form onSubmit={handleNext} className="space-y-6">
         <input type="hidden" name="avatarImage" value={uploadedAvatarUrl} />
 
         <div className="flex flex-col gap-3">
@@ -51,14 +42,7 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
             Add photo
           </Label>
 
-          <Input
-            hidden
-            id="avatarImage"
-            name="avatarImage"
-            type="file"
-            ref={fileInputRef}
-            onChange={handleFileSelect}
-          />
+          <Input hidden id="avatarImage" name="avatarImage" type="file" ref={fileInputRef} onChange={handleFileSelect} />
 
           <div
             className={`rounded-full flex justify-center items-center w-40 h-40 border-2 border-dashed cursor-pointer ${
@@ -119,7 +103,7 @@ export const NewProfile = ({ nextStep }: ProfileStepProps) => {
           <ZodErrors error={formState.ZodError.socialMediaURL} />
         </div>
 
-        <Button type="submit" disabled={uploading} className="cursor-pointer hover:bg-gray-200" onClick={handleNext}>
+        <Button type="submit" disabled={uploading} className="cursor-pointer hover:bg-gray-200">
           Continue
         </Button>
       </form>

@@ -38,6 +38,7 @@ export default function RootLayout({
               <div className="flex items-center justify-around space-x-5">
                 <UserButton />
                 <ClerkUsername />
+
                 <SignOutButton redirectUrl="/">
                   <Button className="text-[16px] border cursor-pointer hover:bg-red-300">Sign Out</Button>
                 </SignOutButton>

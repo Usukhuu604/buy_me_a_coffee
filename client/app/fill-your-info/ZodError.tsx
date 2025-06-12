@@ -1,7 +1,10 @@
 import { XCircle } from "lucide-react";
+import prisma from "@/lib/prisma";
 
 export function ZodErrors({ error }: { error?: string[] }) {
-  if (!error || error.length === 0) return null;
+  if (!error || error.length === 0) {
+    return;
+  }
 
   return (
     <div className="space-y-1">

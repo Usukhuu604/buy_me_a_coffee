@@ -12,7 +12,11 @@ const schemaUserBankCard = z.object({
   country: z.enum(countries, { message: "Please select a country" }),
   firstName: z.string().min(2, { message: "Please enter name" }),
   lastName: z.string().min(2, { message: "Please enter name" }),
-  cardNumber: z.string().length(16, { message: "Wrong card number" }),
+  cardNumber: z
+    .string()
+    .min(16)
+    .max(16, { message: "Card number must be 16 digits" })
+    .regex(/^\d{16}$/, "Card number must be 16 digits"),
   months: z.enum(months, {
     message: "Please select a month",
   }),
@@ -54,6 +58,8 @@ export const createCard = async (previous: unknown, formData: FormData) => {
   const years = formData.get("years");
   const cvc = (formData.get("cvc") as string) ?? "";
 
+  const expiryDate = new Date(Number(years), Number(months) - 1);
+
   await prisma.bankCard.create({
     data: {
       userId: user.id,
@@ -61,7 +67,7 @@ export const createCard = async (previous: unknown, formData: FormData) => {
       firstName,
       lastName,
       cardNumber,
-      expiryDate: new Date(Number(years), Number(months)),
+      expiryDate,
       cvc,
     },
   });

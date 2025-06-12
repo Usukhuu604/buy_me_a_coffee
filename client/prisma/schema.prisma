@@ -39,7 +39,7 @@ model Profile {
   avatarImage     String
   socialMediaURL  String
   backgroundImage String
-  userId          String
+  userId          String   @unique
   updatedAt       DateTime @updatedAt
   createdAt       DateTime @default(now())
 }
